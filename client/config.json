@@ -1,5 +1,8 @@
 {
     "app": "app",
+    "bower": "bower_components",
+    "dist": "../server/dist/",
+    "tmpDir": ".tmp",
     "port": {
         "test": 9876
     }

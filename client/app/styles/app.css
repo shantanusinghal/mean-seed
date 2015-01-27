@@ -1,0 +1,10 @@
+/* fix for empty hrefs in angular */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.carousel-main {
+    height: 305px
+}
+
+.carousel-image {
+    margin:auto
+}

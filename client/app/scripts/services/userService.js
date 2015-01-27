@@ -10,12 +10,12 @@ meanStackApp.factory('UserService', function ($http) {
         $http.get("/demo/user/00")
             .success(function (data) {
                 if(successCallback) successCallback({
-                    name: "Good Guy Shantanu"
+                    name: 'Shantanu'
                 });
             })
             .error(function (data) {
                 if(errorCallback) errorCallback({
-                    name: "Scumbag Shantanu"
+                    name: "Default User"
                 });
             });
     };

@@ -12,6 +12,7 @@ module.exports = function(grunt) {
             options: {
                 hostname: 'localhost',
                 base: '<%= config.app %>',
+                debug: true,
                 middleware: function(connect) {
                     return [
                         connect().use('/bower_components', connect.static('./bower_components')),
@@ -33,6 +34,64 @@ module.exports = function(grunt) {
                 }
             }
         },
+        copy: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'app/',
+                    src: [
+                        'images/**/*.*',
+                        '**/*.html'
+                    ],
+                    dest: '<%= config.dist %>'
+                }]
+            }
+        },
+        clean: {
+            options: {
+                force: true
+            },
+            tmp: [ '<%= config.tmpDir %>' ],
+            dist: [ '<%= config.dist %>' ]
+        },
+        useminPrepare: {
+            options: {
+                dest: '<%= config.dist %>',
+                flow: {
+                    html: {
+                        steps: { js: [ 'concat' ], css: [ 'concat' ] },
+                        post: []
+                    }
+                }
+            },
+            html: '<%= config.app %>/index.html'
+        },
+        filerev: {
+            options: {
+                algorithm: 'md5',
+                length: '8'
+            },
+            dist: {
+                files: [{
+                    src: [
+                        '<%= config.dist %>/scripts/*.js',
+                        '<%= config.dist %>/styles/*.css'
+                    ]
+                }]
+            }
+        },
+        usemin: {
+            html: '<%= config.dist %>/index.html',
+            options: {
+                assetsDir: [ '<%= config.dist %>/scripts' ]
+            }
+        },
+        concat: {
+            options: {
+                separator: ';\n',
+                banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("dd-mm-yyyy") %> */'
+            }
+        },
         watch: {
             server: {
                 options: {
@@ -41,6 +100,7 @@ module.exports = function(grunt) {
                 files: [
                     '<%= config.app %>/index.html',
                     '<%= config.app %>/views/{,*/}*.html',
+                    '<%= config.app %>/styles/{,*/}*.css',
                     '<%= config.app %>/scripts/{,*/}*.js'
                 ]
             }
@@ -84,6 +144,16 @@ module.exports = function(grunt) {
     grunt.registerTask('test', [
         'test:unit',
         'test:e2e'
+    ]);
+
+    grunt.registerTask('deploy', [
+        'clean',
+        'useminPrepare',
+        'concat',
+        'copy:dist',
+        'filerev:dist',
+        'usemin',
+        'clean:tmp'
     ]);
 
     grunt.registerTask('default', 'connect:server');

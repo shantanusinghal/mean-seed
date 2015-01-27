@@ -2,3 +2,6 @@
 *.iml
 client/bower_components
 client/node_modules
+client/.tmp
+server/node_modules
+server/dist

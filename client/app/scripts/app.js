@@ -3,4 +3,4 @@
  */
 'use strict';
 
-var meanStackApp = angular.module('meanStackApp', []);
+var meanStackApp = angular.module('meanStackApp', ['ui.bootstrap']);

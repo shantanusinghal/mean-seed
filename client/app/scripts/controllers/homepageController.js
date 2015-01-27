@@ -16,8 +16,9 @@ meanStackApp.controller('HomepageController', function ($scope, UserService) {
         $scope.user = user;
     };
 
-    function _getDefaultUserFailure () {
-        alert("oops!");
-    }
+    function _getDefaultUserFailure (user) {
+        $scope.user = user;
+        console.log('[ERR] use not found!')
+    };
 
 });

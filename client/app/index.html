@@ -2,18 +2,42 @@
 <html ng-app="meanStackApp">
 <head>
     <title>Mean Stack Application Seed</title>
-    <script src="../bower_components/angular/angular.js"></script>
-    <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- build:css styles/app.css -->
+    <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/app.css"/>
+    <!-- endbuild -->
 </head>
 <body>
 
-    <div ng-controller="HomepageController">
-        <shn-hello name="{{user.name}}"/>
+    <div ng-controller="HomepageController" class="message">
+
+        <div ng-controller="HomepageCarouselController">
+            <div class="carousel-main">
+                <carousel interval="slideInterval">
+                    <slide ng-repeat="slide in slides" active="slide.active">
+                        <img ng-src="{{slide.image}}" class="carousel-image" />
+                        <div class="carousel-caption">
+                            <h4>{{slide.caption}}</h4>
+                        </div>
+                    </slide>
+                </carousel>
+            </div>
+        </div>
+        <shn-hello name="{{user.name | salutation}}"/>
     </div>
 
+    <!-- build:js scripts/app.js -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/homepageController.js"></script>
+    <script src="scripts/controllers/carouselController.js"></script>
     <script src="scripts/directives/shn-hello.js"></script>
     <script src="scripts/services/userService.js"></script>
+    <script src="scripts/filters/salutationFilter.js"></script>
+    <!-- endbuild -->
 </body>
 </html>
