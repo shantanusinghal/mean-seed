@@ -44,6 +44,12 @@ module.exports = function(grunt) {
                         '**/*.html'
                     ],
                     dest: '<%= config.dist %>'
+                },
+                {
+                    expand: true,
+                    cwd: '<%= config.bower %>/bootstrap/',
+                    src: 'fonts/*.*',
+                    dest: '<%= config.dist %>'
                 }]
             }
         },
